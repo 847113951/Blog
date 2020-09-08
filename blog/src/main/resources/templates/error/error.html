@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="_fragments :: head(title='404')">
+
+</head>
+<body>
+<nav class="ui  inverted attached segment m-panned-tb-mini" th:include="_fragments :: menu('0')"></nav>
+
+<br/>
+
+
+
+<div class="m-container-small m-panned-tb-large" style="height: 400px">
+
+    <div class="ui error message" style="height: 350px;">
+        <div class="ui contianer">
+            <h1>出问题了</h1>
+            <div th:utext="'&lt;!--'" th:remove="tag"></div>
+            <div th:utext="'Failed Request URL :'+${url}" th:remove="tag"></div>
+            <div th:utext="'Exception message :'+${exception.message}" th:remove="tag"></div>
+            <ul th:remove="tag">
+                <li th:each="st : ${exception.stackTrace}" th:remove="tag">
+                    <span th:utext="${st}" th:remove="tag"></span>
+                </li>
+            </ul>
+
+            <div th:utext="'--&gt;'" th:remove="tag"></div>
+        </div>
+    </div>
+</div>
+
+
+<footer th:replace="_fragments :: footer"
+        class="ui inverted vertical  center aligned segment m-panned-tb-massive"></footer>
+
+</body>
+</html>

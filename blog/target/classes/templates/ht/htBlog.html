@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>分类管理</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}"/>
+
+</head>
+<body>
+
+<nav class="ui  inverted attached segment m-panned-tb-mini  m-shadow-small" th:include="ht/_fragments :: menu('博客')">
+
+</nav>
+
+<!--二级导航-->
+<div class="ui attached menu pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+
+            <a href="#" th:href="@{/admin/blog}" class=" teal active item">列表</a>
+            <a href="#" th:href="@{/admin/blog/editTag}" class="item">发布</a>
+        </div>
+    </div>
+</div>
+
+
+<div align="center" class="m-panned-tb-small" style="padding-bottom: 0em !important;">
+    <h1 class="ui black header item">博 客 管 理 </h1>
+</div>
+
+<!--		<div class="m-container-small m-panned-tb-huge">
+    <div class="ui container">
+        <div class="ui success large message">
+            <h2>Hi</h2>
+            <p>Welcome to Blog</p>
+        </div>
+        <img src="../../static/img/123.jpg" style="width: 1400px;height: 500px" class="ui rounded bordered fluid image" alt="">
+    </div>
+</div>-->
+<!--
+    描述:中间部分
+-->
+
+<div class="m-container-small m-panned-tb-huge">
+    <div class="ui container">
+        <div class="ui  message" th:unless="${#strings.isEmpty(message)}"
+             th:classappend="${#strings.contains(message,'成功')}?'success':'error'">
+            <i class="close icon"></i>
+            <div class="header">提示：</div>
+            <p th:text="${message}">恭喜:操作成功</p>
+        </div>
+
+
+        <div class="ui secondary segment form">
+            <input type="hidden" name="pageNum"/>
+            <div class="fields inline">
+                <div class="field">
+                    <input type="text" name="title" placeholder="标题">
+                </div>
+
+                <div class="field">
+                    <div class="ui labeled action input">
+                        <div class="ui type selection dropdown">
+                            <input type="hidden" name="typeId">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">分类</div>
+                            <div class="menu">
+                                <div th:each="type:${type}" class="item" th:data-value="${type.id}"
+                                     th:text="${type.name}"></div>
+                            </div>
+                        </div>
+                        <button id="clear" class="ui compact button">clear</button>
+                    </div>
+
+                </div>
+
+                <!--                <div class="field">-->
+                <!--                    <div class="ui checkbox">-->
+                <!--                        <input type="checkbox" name="recommened" id="recommened"   class="hidden" value="0">-->
+                <!--                        <label for="recommened">推荐</label>-->
+                <!--                    </div>-->
+                <!--                </div>-->
+
+                <div class="field">
+                    <button type="button" id="search-btn" class="ui mini teal basic button"><i class="search icon"></i>搜索
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="table-container">
+            <table class="ui compact teal table" th:fragment="blogList" align="center">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>标题</th>
+                    <th>类型</th>
+                    <th>推荐</th>
+                    <th>状态</th>
+                    <th>更新时间</th>
+                    <th>操作</th>
+                </tr>
+                </thead>
+                <tbody th:each="blog:${blog.List}">
+                <tr>
+                    <td th:text="${blog.id}"></td>
+                    <td th:text="${blog.title}"></td>
+                    <td th:text="${blog.type.name}"></td>
+                    <td th:text="${#strings.equals(blog.recommened,1)}?'是':'否'"></td>
+                    <td th:text="${#strings.equals(blog.published,1)}?'发布':'草稿'"></td>
+<!--                    <td th:text="${blog.updateTime}"></td>-->
+                    <td th:text="${#dates.format(blog.updateTime, 'yyyy-MM-dd HH:mm:ss')}"></td>
+                    <td>
+                        <a href="#" th:href="@{/admin/blog/edit/{id}(id=${blog.id})}"
+                           class="ui mini basic teal button">编辑</a>
+                        <button th:attr="del_url=@{/admin/blog/}+${blog.id}"  class="ui mini basic red button deleteBtn">
+                            删除
+                        </button>
+
+                    </td>
+                </tr>
+
+
+                </tbody>
+                <script>
+                    $('.deleteBtn').click(function () {
+                        $("#delete").attr("action", $(this).attr("del_url")).submit();
+                    });
+                </script>
+                <tfoot>
+                <tr>
+                    <th colspan="7">
+                        <div class="ui mini pagination menu">
+
+                            <a onclick="pageNumber(this)" class="item" th:attr="data-page=${blog.pageNum-1}">上一页</a>
+                            <a onclick="pageNumber(this)" class="item" th:attr="data-page=${blog.pageNum+1}">下一页</a>
+                        </div>
+                        <a class="ui mini right floated teal basic button" th:href="@{/admin/blog/edit}">新增</a>
+                    </th>
+                </tr>
+                </tfoot>
+            </table>
+        </div>
+
+    </div>
+</div>
+
+
+<form id="delete" method="post">
+    <input type="hidden" name="_method" value="Delete"/>
+</form>
+
+
+<!--
+    作者：ydw
+    时间：2020-07-27
+    描述：底部footer
+    center aligned: 居中
+-->
+<footer class="ui inverted vertical  center aligned segment m-panned-tb-massive" th:include="ht/_fragments :: footer">
+
+</footer>
+
+
+<!--	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+-->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    $('.message .close').on('click', function () {
+        $(this).closest('.message')
+            .transition('fade');
+    });
+
+    $('.deleteBtn').click(function () {
+        $("#delete").attr("action", $(this).attr("del_url")).submit();
+    });
+
+
+    $('#clear').on('click', function () {
+        $('.ui.type.dropdown').dropdown('clear');
+    })
+
+
+    function pageNumber(obj) {//点击翻页将页码值 赋值给表单中的隐藏域
+        $("[name='pageNum']").val($(obj).data("page"));
+
+        loadData();
+    }
+
+
+
+    $('#search-btn').click(function () {
+        loadData();
+    });
+
+    function loadData() {
+        $("#table-container").load(/*[[@{/admin/blog/search}]]*/"/admin/blog/search", {
+            title: $("[name='title']").val(),
+            typeId: $("[name='typeId']").val(),
+            // recommened: $("[name='recommened']").val(),
+            pageNum: $("[name='pageNum']").val()
+        });
+    }
+
+    $(function () {
+        $('#recommened').click(function () {
+            this.value = (this.value == 0) ? 1 : 0;
+        });
+    });
+</script>
+
+
+</body>
+</html>

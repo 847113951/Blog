@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>分类管理</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}"/>
+
+</head>
+<body>
+
+<nav class="ui  inverted attached segment m-panned-tb-mini  m-shadow-small" th:include="ht/_fragments :: menu('分类')">
+
+</nav>
+
+<!--二级导航-->
+<div class="ui attached menu pointing menu">
+    <div class="ui container">
+        <div class="right menu">
+
+            <a href="#" th:href="@{/admin/type}" class="teal active item">列表</a>
+            <a href="#" th:href="@{/admin/type/input}" class="item">编辑</a>
+        </div>
+    </div>
+</div>
+
+
+<div align="center" class="m-panned-tb-small" style="padding-bottom: 0em !important;">
+    <h1 class="ui black header item">分 类 管 理 </h1>
+</div>
+
+<!--		<div class="m-container-small m-panned-tb-huge">
+    <div class="ui container">
+        <div class="ui success large message">
+            <h2>Hi</h2>
+            <p>Welcome to Blog</p>
+        </div>
+        <img src="../../static/img/123.jpg" style="width: 1400px;height: 500px" class="ui rounded bordered fluid image" alt="">
+    </div>
+</div>-->
+<!--
+    描述:中间部分
+-->
+
+<div class="m-container-small m-panned-tb-huge">
+    <div class="ui container">
+        <div class="ui message" th:unless="${#strings.isEmpty(message)}"
+             th:classappend="${#strings.contains(message,'成功')}?'success':'error'">
+            <i class="close icon"></i>
+            <div class="header">提示：</div>
+            <p th:text="${message}">恭喜:操作成功</p>
+        </div>
+        <table class="ui celled table">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>名称</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody th:each="type : ${Type.List}">
+            <tr>
+                <td th:text="${type.id}">id</td>
+                <td th:text="${type.name}">Java</td>
+                <td>
+                    <a href="#" th:href="@{/admin/type/{id}(id=${type.id})}"
+                       class="ui mini basic teal button">编辑</a>
+
+
+                    <button  th:attr="del_url=@{/admin/type/{id}(id=${type.id})}" class="ui mini basic red button deleteBtn">删除</button>
+                </td>
+            </tr>
+
+
+            </tbody>
+            <tfoot>
+            <tr>
+                <th colspan="6">
+
+                    <div class="ui mini pagination menu">
+                        <a class="item" th:href="@{/admin/type(pageNumber=${Type.pageNum}-1)}">上一页</a>
+                        <a class="item" th:href="@{/admin/type(pageNumber=${Type.pageNum}+1)}">下一页</a>
+                    </div>
+                    <a class="ui mini right floated teal basic button" th:href="@{/admin/type/input}">新增</a>
+
+                </th>
+            </tr>
+
+            </tfoot>
+        </table>
+
+    </div>
+</div>
+<form id="delete" method="post">
+    <input type="hidden" name="_method" value="Delete"/>
+</form>
+
+
+<!--
+    作者：ydw
+    时间：2020-07-27
+    描述：底部footer
+    center aligned: 居中
+-->
+<footer class="ui inverted vertical  center aligned segment m-panned-tb-massive" th:include="ht/_fragments :: footer">
+
+</footer>
+
+
+<!--	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+-->
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+
+<script>
+    $('.menu.toggle').click(function () {
+        console.log('111');
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+    $('.message .close').on('click', function () {
+        $(this).closest('.message')
+            .transition('fade');
+    });
+    $('.deleteBtn').click(function () {
+        $("#delete").attr("action", $(this).attr("del_url")).submit();
+    });
+
+</script>
+
+
+</body>
+</html>

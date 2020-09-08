@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>博客首页</title>
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css"  rel="stylesheet">
+
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}"/>
+</head>
+<body>
+<nav class="ui  inverted attached segment m-panned-tb-mini  m-shadow-small" th:include="ht/_fragments :: menu('首页')">
+
+    <div class="ui  container">
+        <!--
+            secondary:改变一些效果。去除边框...
+            menu:菜单效果
+        -->
+        <div class="ui inverted  stackable secondary  menu">
+            <!--item 菜单样式-->
+            <h2 class="ui teal header item">后台管理</h2>
+            <a href="#" class="m-item item m-mobile-hide"><i class=" home icon"></i>博客</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class=" idea icon"></i>分类</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class=" clone icon"></i>标签</a>
+            <div class="right m-item menu">
+                <div class="ui dropdown  m-mobile-hide item">
+                    <div class="text">
+                        <img class="ui avatar image" src="../../static/img/timg (2).jpg" th:src="@{/img/timg (2).jpg}">
+                        YDW
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" id="i1" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+
+
+<!--
+    描述:中间部分
+-->
+
+<div class="m-container-small m-panned-tb-huge">
+    <div class="ui container">
+        <div class="ui success large message">
+            <h2>Hi</h2>
+            <p>Welcome to Blog</p>
+        </div>
+        <img src="../../static/img/123.jpg"  th:src="@{/img/123.jpg}" style="width: 1400px;height: 500px" class="ui rounded bordered fluid image"
+             alt="">
+    </div>
+</div>
+
+
+<!--
+    作者：ydw
+    时间：2020-07-27
+    描述：底部footer
+    center aligned: 居中
+-->
+<footer class="ui inverted vertical  center aligned segment m-panned-tb-massive" th:include="ht/_fragments :: footer">
+
+</footer>
+
+
+<!--	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>
+-->
+
+<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+
+<script>
+    $('.menu.toggle').click(function () {
+        console.log('111');
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
+
+</script>
+
+
+</body>
+</html>

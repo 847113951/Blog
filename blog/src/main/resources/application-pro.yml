@@ -1,0 +1,56 @@
+spring:
+  datasource:
+    username: blog
+    password: As010010
+    url: jdbc:mysql://42.194.149.85:3306/blog?useUnicode=true&characterEncoding=utf-8&relaxAutoCommit=true&zeroDateTimeBehavior=convertToNull&allowMultiQueries=true&serverTimezone=UTC&serverTimezone=Asia/Shanghai
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    #springboot启动默认初始化数据库
+    initialization-mode: always
+    # 下面为连接池的补充设置，应用到上面所有数据源中
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    # 初始化大小，最小，最大
+    initialSize: 1
+    minIdle: 3
+    maxActive: 20
+    # 配置获取连接等待超时的时间
+    maxWait: 60000
+    # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
+    timeBetweenEvictionRunsMillis: 60000
+    # 配置一个连接在池中最小生存的时间，单位是毫秒
+    minEvictableIdleTimeMillis: 30000
+    validationQuery: select 'x'
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+    # 打开PSCache，并且指定每个连接上PSCache的大小
+    poolPreparedStatements: true
+    maxPoolPreparedStatementPerConnectionSize: 20
+    # 配置监控统计拦截的filters，去掉后监控界面sql无法统计，'wall'用于防火墙
+    filters: stat,wall,slf4j
+    # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+    connectionProperties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000
+    # 合并多个DruidDataSource的监控数据
+    #useGlobalDataSourceStat: true
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+  #mybatis
+  jackson:
+    date-format: yyyy-MM-dd
+mybatis:
+  mapper-locations: classpath:mapping/*.xml
+  type-aliases-package: com.ylb.Pojo
+
+#showSql
+logging:
+  level:
+    com:
+      ylb: info
+server:
+  port: 8089
+
+pagehelper:
+  reasonable: true #如果查询页面大于最后一个则查最后一个，第一页同样效果
+comment.avatar: /img/avatar.jpg
