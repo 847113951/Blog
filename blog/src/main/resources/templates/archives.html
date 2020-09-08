@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="_fragments.html :: head(title='归档')"></head>
+<body>
+<!--
+    描述：顶部导航
+    ui：固定格式
+    inverted：使部件颜色和底部颜色相反
+    attached:使部件边角部分变成直角
+    segment：片段的效果
+
+-->
+<nav class="ui  inverted attached segment m-panned-tb-mini  m-shadow-small"
+     th:include="_fragments.html :: menu('归档')"></nav>
+
+
+<!--
+    描述:中间部分
+-->
+
+<div class="m-container-small m-panned-tb-huge">
+    <div class="ui container">
+        <div class="ui top attached padded segment">
+            <!--分为两列 -->
+            <div class="ui middle aligned two column grid">
+                <div class="column">
+                    <!--teal header: 一种颜色-->
+                    <h3 class="ui teal header">归档</h3>
+                </div>
+                <div class="right aligned column ">
+                    共 <h2 class="ui orange header m-text-thin m-inline-block" th:text="${count}"> 100 </h2> 篇博客
+                </div>
+            </div>
+        </div>
+        <th:block th:each="item : ${archive}">
+            <h3 class="ui center aligned header" th:text="${item.key}">2017</h3>
+            <div class="ui fluid vertical menu">
+                <a href="#" class="item" th:href="@{/blog/{id}(id=${blog.id})}" th:each="blog:${item.value}">
+				<span>
+					<i class="ui circle teal icon"></i><span th:text="${blog.title}">关于刻意练习的清单</span>
+					<div class="ui teal   basic left pointing label m-panned-mini m-text-thin" th:text="${#dates.format(blog.createTime,'MMMdd')}">8月24日</div>
+				</span>
+                    <div class="ui left pointing basic orange label" th:text="${blog.flag}">
+                        原创
+                    </div>
+                </a>
+            </div>
+        </th:block>
+    </div>
+</div>
+
+
+<!--描述：底部footercenter-->
+<footer th:replace="_fragments.html :: footer"
+        class="ui inverted vertical  center aligned segment m-panned-tb-massive"></footer>
+
+
+<!--引入script-->
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<!--/*/</th:block>/*/-->
+
+<script>
+    $('.menu.toggle').click(function () {
+        console.log('111');
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+
+</script>
+
+
+</body>
+</html>

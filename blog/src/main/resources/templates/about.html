@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:include="_fragments.html :: head(title='关于我')">
+
+</head>
+<body>
+<nav class="ui  inverted attached segment m-panned-tb-mini  m-shadow-small" th:include="_fragments.html :: menu('关于我')"></nav>
+
+<!-- 描述:中间部分-->
+<div class="m-container-small m-panned-tb-huge">
+    <div class="ui container">
+
+        <div class="ui grid">
+            <div class="eleven wide column">
+                <div class="ui segment">
+                    <img src="static/img/timg (5).jpg" th:src="@{/img/timg (5).jpg}" height="400px" width="600px" alt="" class="ui rounded image"/>
+                </div>
+            </div>
+
+            <div class="five wide column">
+                <div class="ui top attached segment">
+                    <div class="ui header">关于我</div>
+                </div>
+
+                <div class="ui attached segment">
+                    <p class="m-text-thin">     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;已经踏上了编程的自学不归路， 在0和1的世界之间来回穿梭的一个人。</p>
+
+                </div>
+
+                <div class="ui attached segment">
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">编程</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">思考</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">运动</div>
+                    <div class="ui orange basic left pointing label m-margin-tb-tiny">...</div>
+
+                </div>
+
+                <div class="ui  attached segment">
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">Linux</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">SSM</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">SprinBoot</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">Git</div>
+                    <div class="ui teal basic left pointing label  m-margin-tb-tiny">Redis</div>
+                    <div class="ui teal basic left pointing label  m-margin-tb-tiny">Docker</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">SpringSecurity</div>
+                    <div class="ui teal basic left pointing label m-margin-tb-tiny">ElasticSearch</div>
+
+
+                </div>
+
+                <div class="ui bottom  attached segment">
+                    <a href="#" class="ui mobile circular icon  button" data-content="13177995123"
+                       data-position="bottom center"><i class="mobile icon"></i></a>
+                    <a href="#" class="ui qq  circular icon  button" data-content="847113951"
+                       data-position="bottom center"><i class="qq icon"></i></a>
+                    <a href="#" class="ui weixin circular icon button" data-position="bottom center"><i
+                            class="weixin icon"></i></a>
+
+                </div>
+
+                <div class="ui  weixinR flowing popup transition hidden">
+                    <div class="ui orange basic label">
+                        <div class="ui images" style="font-size: inherit !important;">
+                            <img src="static/img/weixin.jpg" th:src="@{/img/weixin.jpg}" class="ui rounded  bordered image" style="width: 120px;"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--底部-->
+<footer class="ui inverted vertical  center aligned segment m-panned-tb-massive" th:replace="_fragments :: footer"></footer>
+
+
+
+<!--引入script-->
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<!--/*/</th:block>/*/-->
+
+
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('.qq').popup({});
+
+    $('.weixin').popup({
+        popup: $('.weixinR.popup'),/*定位元素*/
+        on: 'hover', /*怎么触发它*/
+        position: 'bottom center' /*在什么位置*/
+    });
+
+    $('.mobile').popup({});
+
+
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:fragement="head(title)">
+    <!--
+          作者：杨德威
+          时间：2020-07-27
+          描述：个人博客详情页
+           -->
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <!--
+        viewport：移动端屏幕用来显示网页的那块区域
+        width:可视区域的宽度，值可为数字或关键词device-width
+        initial-scale=1.0 ：默认打开浏览器时的缩放级别. 1.0表示无任何缩放
+    -->
+    <title th:text="${title}">Blog</title>
+
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
+          th:href="@{https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css}" rel="stylesheet"/>
+    <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}"/>
+    <link rel="stylesheet" href="../static/css/me.css" th:href="@{/css/me.css}"/>
+    <link rel="stylesheet" href="../static/lib/prism/prism.css" th:href="@{/lib/prism/prism.css}"/>
+    <link rel="stylesheet" href="../static/css/animate.css" th:href="@{/css/animate.css}"/>
+    <link rel="stylesheet" href="../static/lib/tocbot/tocbot.css" th:href="@{/lib/tocbot/tocbot.css}">
+
+    <!--    后台-->
+    <link href="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../static/css/me.css" th:href="@{/css/me.css}"/>
+    <link href="../../static/lib/editorMd/css/editormd.min.css" th:href="@{/lib/editorMd/css/editormd.min.css}"/>
+    <link rel="stylesheet" href="../../static/lib/editorMd/css/editormd.css" th:href="@{/lib/editorMd/css/editormd.css}"/>
+</head>
+<body>
+<!--
+    描述：顶部导航
+    ui：固定格式
+    inverted：使部件颜色和底部颜色相反
+    attached:使部件边角部分变成直角
+    segment：片段的效果
+
+-->
+<nav th:fragment="menu(n)" class="ui  inverted attached segment m-panned-tb-mini  m-shadow-small">
+
+    <div class="ui  container">
+        <!--
+            secondary:改变一些效果。去除边框...
+            menu:菜单效果
+        -->
+        <div class="ui inverted  stackable secondary  menu">
+            <!--item 菜单样式-->
+            <h2 class="ui teal header item">后台系统</h2>
+            <a href="#" th:href="@{/admin/blog}" class="m-item item m-mobile-hide" th:classappend="${n=='博客'}?'active'"><i
+                    class=" home icon"></i>博客</a>
+            <a href="#" th:href="@{/admin/type}" class="m-item item m-mobile-hide" th:classappend="${n=='分类'}?'active'"><i
+                    class=" idea icon"></i>分类</a>
+            <a href="#" th:href="@{/admin/tag}" class="m-item item m-mobile-hide" th:classappend="${n=='标签'}?'active'"><i
+                    class=" clone icon"></i>标签</a>
+            <div class="right m-item menu">
+                <div class="ui dropdown  m-mobile-hide item">
+                    <div class="text">
+                        <img class="ui avatar image" src="../../static/img/timg (2).jpg" th:src="@{/img/timg (2).jpg}">
+                        YDW
+                    </div>
+                    <i class="dropdown icon"></i>
+                    <div class="menu">
+                        <a href="#" class="item" th:href="@{/admin/logout}">注销</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" id="i1" class="ui menu toggle black icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+
+<footer class="ui inverted vertical  center aligned segment m-panned-tb-massive">
+    <div class="ui  container ">
+        <!--
+
+            描述：类似bootstrap栅格布局 将模块分为16块
+                 divided:分割
+        -->
+
+        <div class="ui inverted stackable divided grid">
+            <div class="four wide column">
+                <div class="ui inverted link list">
+                    <div class="item">
+                        <!--
+                        rounded image: 图片是圆角的
+                        -->
+                        <img src="../../static/img/weixin.jpg" th:src="@{/img/weixin.jpg}" class="ui rounded image" alt="" style="width: 120px;"/>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <div class="four wide column">
+                <h4 class="ui inverted header m-opacity-mini">联系我</h4>
+                <div class="ui inverted link list">
+                    <a  class="item">QQ:847113951</a>
+                    <a  class="item">tel:131****5123</a>
+                    <a  class="item">email:847113951@qq.com</a>
+                </div>
+            </div>
+
+            <div class="eight wide column">
+                <h4 class="ui inverted header m-opacity-mini">YangDewei</h4>
+                <p class="m-text-lined m-opacity-tiny m-text-spaced">我的最新博客,分享学习经历~个人生活~和编程相关的任何内容。</p>
+
+            </div>
+        </div>
+
+    </div>
+    <!--分割线-->
+    <div class="ui inverted section divider"></div>
+    <p class="m-text-lined m-opacity-tiny m-text-spaced">Copyright 2019-2020  Designed by YangDewei</p>
+</footer>
+
+
+<!--引入script-->
+<th:block th:fragment="script">
+    <!--	<script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.js"></script>-->
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
+    <script src="https://cdn.bootcdn.net/ajax/libs/semantic-ui/2.4.1/semantic.js"></script>
+    <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>
+    <script src="../static/lib/tocbot/tocbot.js" th:src="@{/lib/tocbot/tocbot.js}"></script>
+    <script src="../static/lib/qrcode/qrcode.js" th:src="@{/lib/qrcode/qrcode.js}"></script>
+    <script src="../static/lib/waypoints/jquery.waypoints.min.js"
+            th:src="@{/lib/waypoints/jquery.waypoints.min.js}"></script>
+    <script src="../static/lib/waypoints/shotcuts/sticky.min.js"
+            th:src="@{/lib/waypoints/shotcuts/sticky.min.js}"></script>
+
+    <script src="../../static/lib/editorMd/editormd.min.js" th:src="@{/lib/editorMd/editormd.min.js}"></script>
+</th:block>
+</body>
+</html>
