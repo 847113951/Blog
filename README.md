@@ -9,3 +9,5 @@
 7 缓存：Redis<br/>
 8 前端模板：Thymeleaf<br/>
 9 文章展示：Editor.md<br/>
+
+<p>页面整体有些单调，过些时间会对页面进行改进</p>
